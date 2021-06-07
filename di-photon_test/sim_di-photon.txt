@@ -1,0 +1,51 @@
+if [ ! -n "${1}" ] || [ ! -n "${2}" ] || [ ! -n "${3}" ];then
+   echo "ERROR: Missing input parameters."
+   echo "usage :   source sim_di-photon.txt {energy} {index} {angle_index}"
+   echo "          hep_pnd sim_di-photon.txt -argu {energy} {index} {angle_index}"
+   return
+fi
+
+#OOOOOOOOOooooooooo UserSetting  oooooooooOOOOOOOOO
+
+dir_name="A${3}_di-photon_test_${1}GeV"
+add_string_sim=""
+output_file_name="sim_emc_${2}.root"
+
+nEvt=100
+Pdg=22 ; nParticle=2
+mom_min=${1} ; mom_max=${1}
+
+theta_min_array=(23.8514 26.4557 29.4579 32.6536 36.1172 39.9051 44.2385 48.8451 53.7548 59.0059 64.7855 70.8088 77.0506 83.4997 90.2068 96.8200 103.361 109.793 116.067 121.838 127.273 132.400 137.230)
+
+theta_max_array=(24.6978 27.3781 30.4916 33.7759 37.3507 41.2390 45.7355 50.4459 55.4790 60.8229 66.7591 72.8652 79.1942 85.6749 92.4062 99.0099 105.534 111.893 118.019 123.686 129.033 134.031 138.679)
+
+theta_min=${theta_min_array[${3}]} ; theta_max=${theta_max_array[${3}]}
+
+phi_mean=$(printf "%.01f" `echo "scale=2;$RANDOM/91.02"|bc`)
+delta=2.25
+phi_min=$(echo "scale=2;$phi_mean - $delta"|bc); phi_max=$(echo "scale=2;$phi_mean + $delta"|bc)
+#OOOOOOOOOooooooooo     End      oooooooooOOOOOOOOO
+
+export MY_OUTPUT_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/$output_file_name"
+export MY_PAR_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/simparams_${2}.root"
+export MY_ASCII_FILE="$MY_RUN_DIR/my_emc.par"
+
+if [ ! -d $PND_DATA_DIR/$dir_name ];then
+	mkdir $PND_DATA_DIR/$dir_name
+	mkdir $PND_DATA_DIR/$dir_name/sim$add_string_sim
+else if [ ! -d $PND_DATA_DIR/$dir_name/sim$add_string_sim ];then
+	    mkdir $PND_DATA_DIR/$dir_name/sim$add_string_sim
+     fi
+fi
+
+cd $MY_RUN_DIR
+
+root -l -q sim_emc.C"($nEvt, $Pdg, $nParticle, $mom_min, $mom_max, $theta_min, $theta_max, $phi_min, $phi_max)"
+
+cd -
+unset dir_name
+unset add_string_sim
+unset output_file_name
+unset MY_OUTPUT_FILE
+unset MY_PAR_FILE
+unset MY_ASCII_FILE

@@ -1,0 +1,3 @@
+. $PND_CONFIG_1
+root -l -q pi0_mass_pre.C
+#root -l -q pi0_mass_step1.C

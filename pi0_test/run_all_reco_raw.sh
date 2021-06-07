@@ -1,0 +1,9 @@
+. run_reco_raw.sh 2.0
+. run_reco_raw.sh 2.5
+. run_reco_raw.sh 3.0
+. run_reco_raw.sh 3.5
+. run_reco_raw.sh 4.0
+. run_reco_raw.sh 4.5
+. run_reco_raw.sh 5.0
+. run_reco_raw.sh 5.5
+. run_reco_raw.sh 6.0

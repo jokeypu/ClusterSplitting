@@ -1,0 +1,49 @@
+使用说明：
+1.简介
+该包用于更方便地提交Panda作业，用户仅需修改作业脚本就能跑相应的单粒子产生的事例。
+
+
+2.初始化环境
+方法为. configi.sh 
+
+<设置数据存储路径>，将其改为自己存放数据的路径，默认为用户scratchfs下pnd_data
+
+hep_pnd [jobscript] 为提交后台作业的快捷指令，输出和报错信息存在info下，初始化会清空info
+
+<建立PandaRoot环境>，如果是开发者，可以设置为自己的PandaRoot环境，改路径即可
+
+<Panda提交作业环境变量> ,不用改
+
+以上部分包括了跑Panda作业的全部配置，只要你愿意，可以在登陆账户后直接. config.sh，就能跑作业了，嫌麻烦可以设置快捷指令
+例如：alias pnd_config=". <config.sh绝对路径>"
+
+
+3.脚本说明
+
+1)sim.sh 
+对应C文件sim_emc.C，模拟脚本，仅模拟EMC
+data_name 为数据文件夹名字，下面为模拟粒子pdg，角度等信息
+my_emc.par 为参数文件，模拟过程调用，可修改里面内容，如修改是否启用光收集不均匀性Use_nonuniformity:Int 1或0
+simparams.root 为几何文件，不用管
+
+2)digi_reco.sh
+对应C文件digi_reco_emc.C，数字化和重建过程的整合，同样data_name是用于重建的输入模拟数据文件夹的名字
+
+3)Read_sim.C
+一个读产生的root文件的例子，读取一个事例point能量损失总和与hit能量总和，画在一个图上，输入参数为config.sh设置的存储路径下的数据文件夹名
+
+
+4.例子
+比如我要产生单光子事例，数据文件夹名字为test，先初始化环境
+. config.sh
+
+vi sim.sh修改前面的内容设置模拟事例的信息，然后
+hep_pnd sim.sh
+
+等跑完模拟后，需要跑重建，vi digi_reco.sh设置数据文件夹名字
+hep_pnd digi_reco.sh
+
+重建后要看point和hit能量总和
+root Read_sim.C'("test")'
+
+即可出图

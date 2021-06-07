@@ -1,0 +1,37 @@
+#OOOOOOOOOooooooooo UserSetting  oooooooooOOOOOOOOO
+
+dir_name="test"
+add_string_sim=""
+output_file_name="sim_emc.root"
+
+nEvt=5000
+Pdg=111 ; nParticle=1
+mom_min=2 ; mom_max=2
+theta_min=60 ; theta_max=80
+phi_min=0 ; phi_max=360
+
+#OOOOOOOOOooooooooo     End      oooooooooOOOOOOOOO
+
+export MY_OUTPUT_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/$output_file_name"
+export MY_PAR_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/simparams.root"
+export MY_ASCII_FILE="$MY_RUN_DIR/my_emc.par"
+
+if [ ! -d $PND_DATA_DIR/$dir_name ];then
+	mkdir $PND_DATA_DIR/$dir_name
+	mkdir $PND_DATA_DIR/$dir_name/sim$add_string_sim
+else if [ ! -d $PND_DATA_DIR/$dir_name/sim$add_string_sim ];then
+	    mkdir $PND_DATA_DIR/$dir_name/sim$add_string_sim
+     fi
+fi
+
+cd $MY_RUN_DIR
+
+root -l -q sim_emc.C"($nEvt, $Pdg, $nParticle, $mom_min, $mom_max, $theta_min, $theta_max, $phi_min, $phi_max)"
+
+cd -
+unset dir_name
+unset add_string_sim
+unset output_file_name
+unset MY_OUTPUT_FILE
+unset MY_PAR_FILE
+unset MY_ASCII_FILE

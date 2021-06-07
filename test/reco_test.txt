@@ -1,0 +1,38 @@
+
+#OOOOOOOOOooooooooo UserSetting  oooooooooOOOOOOOOO
+
+dir_name="test"
+add_string_sim=""
+add_string_reco=""
+input_file_name="sim_emc.root"
+output_file_name="reco_emc.root"
+
+#OOOOOOOOOooooooooo     End      oooooooooOOOOOOOOO
+
+export MY_INPUT_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/$input_file_name"
+export MY_OUTPUT_FILE="$PND_DATA_DIR/$dir_name/reco$add_string_reco/$output_file_name"
+export MY_PAR_FILE="$PND_DATA_DIR/$dir_name/sim$add_string_sim/simparams.root"
+export MY_ASCII_FILE="$MY_RUN_DIR/my_emc.par"
+
+if [ ! -f $MY_INPUT_FILE ];then
+	echo "-ERROR There is no such input file: $MY_INPUT_FILE"
+	exit 1	
+else if [ ! -d $PND_DATA_DIR/$dir_name/reco$add_string_reco ];then
+            mkdir $PND_DATA_DIR/$dir_name/reco$add_string_reco
+     fi
+fi
+
+cd $MY_RUN_DIR
+
+root -l -q reco_emc.C
+
+cd -
+unset dir_name
+unset add_string_sim
+unset add_string_reco
+unset input_file_name
+unset output_file_name
+unset MY_INPUT_FILE
+unset MY_OUTPUT_FILE
+unset MY_PAR_FILE
+unset MY_ASCII_FILE

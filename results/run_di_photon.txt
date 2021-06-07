@@ -1,0 +1,5 @@
+. $PND_CONFIG_1
+#root -l -q di_photon_energy_pre.C'("A3",3)'
+root -l -q di_photon_energy_pre.C'("A15",15)'
+#root -l -q di_photon_energy_pre.C'("A20",20)'
+#root -l -q di_photon_energy_step1.C

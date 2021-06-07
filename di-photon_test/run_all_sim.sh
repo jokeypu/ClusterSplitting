@@ -1,0 +1,12 @@
+. run_sim.sh 0.5
+. run_sim.sh 1.0
+. run_sim.sh 1.5
+. run_sim.sh 2.0
+. run_sim.sh 2.5
+. run_sim.sh 3.0
+. run_sim.sh 3.5
+. run_sim.sh 4.0
+. run_sim.sh 4.5
+. run_sim.sh 5.0
+. run_sim.sh 5.5
+. run_sim.sh 6.0
