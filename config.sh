@@ -17,8 +17,9 @@ export FAIRROOTPATH=/cvmfs/panda.ihep.ac.cn/FairRoot/install_v18.2.0 # FairRoot
 
 export PATH=$PATH:/afs/ihep.ac.cn/soft/common/sysgroup/hep_job/bin # Panda提交作业环境变量
 
-. plot/plot_config.sh #配置plot
+. plot/config_plot.sh #配置plot
 . results/config_results.sh #配置results
+
 if [ ! -d $PND_DATA_DIR ];then
 	mkdir $PND_DATA_DIR 
 fi

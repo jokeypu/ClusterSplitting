@@ -1,4 +1,4 @@
-. $PND_CONFIG_1
+. $PND_CONFIG_1 - > /dev/null
 if [ -d $MY_RUN_DIR/results/doc ];then
         if [ ! -d $MY_RUN_DIR/results/doc/step1_di-photon_picture ];then
                 mkdir $MY_RUN_DIR/results/doc/step1_di-photon_picture
